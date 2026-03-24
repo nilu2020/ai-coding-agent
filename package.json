@@ -1,0 +1,432 @@
+{
+  "name": "ai-coding-agent",
+  "publisher": "ai-coding-agent",
+  "displayName": "AI Coding Agent",
+  "description": "AI-powered coding assistant — chat, inline generation, and autocomplete with OpenAI, Anthropic, Gemini, or Ollama (local)",
+  "version": "1.7.0",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nilu2020/ai-coding-agent"
+  },
+  "keywords": [
+    "ai",
+    "copilot",
+    "chatgpt",
+    "claude",
+    "gemini",
+    "autocomplete",
+    "code generation"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "icon": "images/icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiCodingAgent.openChat",
+        "title": "AI Agent: Open Chat",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "aiCodingAgent.generateFromSelection",
+        "title": "AI Agent: Generate Code from Selection",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "aiCodingAgent.explainCode",
+        "title": "AI Agent: Explain Selected Code"
+      },
+      {
+        "command": "aiCodingAgent.refactorCode",
+        "title": "AI Agent: Refactor Selected Code"
+      },
+      {
+        "command": "aiCodingAgent.fixCode",
+        "title": "AI Agent: Fix Selected Code"
+      },
+      {
+        "command": "aiCodingAgent.addTests",
+        "title": "AI Agent: Add Tests for Selected Code"
+      },
+      {
+        "command": "aiCodingAgent.addComments",
+        "title": "AI Agent: Add Comments/Docs to Selection"
+      },
+      {
+        "command": "aiCodingAgent.clearChat",
+        "title": "AI Agent: Clear Chat History"
+      },
+      {
+        "command": "aiCodingAgent.openArchitect",
+        "title": "AI Agent: Open Architect Intelligence",
+        "icon": "$(circuit-board)"
+      },
+      {
+        "command": "aiCodingAgent.openContentWriter",
+        "title": "AI Agent: Open Content Writer",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "aiCodingAgent.analyzeFunction",
+        "title": "AI Agent: Analyze Current Function"
+      },
+      {
+        "command": "aiCodingAgent.refactorFunction",
+        "title": "AI Agent: Refactor Current Function"
+      },
+      {
+        "command": "aiCodingAgent.testFunction",
+        "title": "AI Agent: Generate Tests for Current Function"
+      },
+      {
+        "command": "aiCodingAgent.documentFunction",
+        "title": "AI Agent: Document Current Function"
+      },
+      {
+        "command": "aiCodingAgent.optimizeFunction",
+        "title": "AI Agent: Optimize Current Function"
+      },
+      {
+        "command": "aiCodingAgent.extractFunction",
+        "title": "AI Agent: Extract Helper Functions"
+      },
+      {
+        "command": "aiCodingAgent.traceFunction",
+        "title": "AI Agent: Trace Execution Flow"
+      },
+      {
+        "command": "aiCodingAgent.findCodeSmells",
+        "title": "AI Agent: Find Code Smells in Current Function"
+      },
+      {
+        "command": "aiCodingAgent.toggleCodeLens",
+        "title": "AI Agent: Toggle Inline AI Buttons (CodeLens)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aiCodingAgent",
+          "title": "AI Coding Agent",
+          "icon": "images/sidebar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "aiCodingAgent": [
+        {
+          "type": "webview",
+          "id": "aiCodingAgent.chatView",
+          "name": "Chat"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "aiCodingAgent.generateFromSelection",
+          "when": "editorHasSelection",
+          "group": "aiAgent@1"
+        },
+        {
+          "command": "aiCodingAgent.explainCode",
+          "when": "editorHasSelection",
+          "group": "aiAgent@2"
+        },
+        {
+          "command": "aiCodingAgent.refactorCode",
+          "when": "editorHasSelection",
+          "group": "aiAgent@3"
+        },
+        {
+          "command": "aiCodingAgent.fixCode",
+          "when": "editorHasSelection",
+          "group": "aiAgent@4"
+        },
+        {
+          "command": "aiCodingAgent.addTests",
+          "when": "editorHasSelection",
+          "group": "aiAgent@5"
+        },
+        {
+          "command": "aiCodingAgent.addComments",
+          "when": "editorHasSelection",
+          "group": "aiAgent@6"
+        },
+        {
+          "command": "aiCodingAgent.analyzeFunction",
+          "when": "editorTextFocus",
+          "group": "aiFunction@1"
+        },
+        {
+          "command": "aiCodingAgent.refactorFunction",
+          "when": "editorTextFocus",
+          "group": "aiFunction@2"
+        },
+        {
+          "command": "aiCodingAgent.testFunction",
+          "when": "editorTextFocus",
+          "group": "aiFunction@3"
+        },
+        {
+          "command": "aiCodingAgent.documentFunction",
+          "when": "editorTextFocus",
+          "group": "aiFunction@4"
+        },
+        {
+          "command": "aiCodingAgent.optimizeFunction",
+          "when": "editorTextFocus",
+          "group": "aiFunction@5"
+        },
+        {
+          "command": "aiCodingAgent.extractFunction",
+          "when": "editorHasSelection",
+          "group": "aiFunction@6"
+        },
+        {
+          "command": "aiCodingAgent.traceFunction",
+          "when": "editorTextFocus",
+          "group": "aiFunction@7"
+        },
+        {
+          "command": "aiCodingAgent.findCodeSmells",
+          "when": "editorTextFocus",
+          "group": "aiFunction@8"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "aiCodingAgent.openChat",
+          "group": "navigation",
+          "when": "true"
+        },
+        {
+          "command": "aiCodingAgent.openArchitect",
+          "group": "navigation",
+          "when": "true"
+        },
+        {
+          "command": "aiCodingAgent.openContentWriter",
+          "group": "navigation",
+          "when": "true"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI Coding Agent",
+      "properties": {
+        "aiCodingAgent.provider": {
+          "type": "string",
+          "enum": [
+            "openai",
+            "anthropic",
+            "gemini",
+            "ollama"
+          ],
+          "enumDescriptions": [
+            "OpenAI (GPT-4o, etc.) — requires API key",
+            "Anthropic Claude — requires API key",
+            "Google Gemini — requires API key",
+            "Ollama — runs locally, no API key needed"
+          ],
+          "default": "openai",
+          "description": "Which AI provider to use"
+        },
+        "aiCodingAgent.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your OpenAI API key (sk-...)",
+          "markdownDescription": "Your OpenAI API key. Get one at [platform.openai.com](https://platform.openai.com/api-keys)"
+        },
+        "aiCodingAgent.openaiModel": {
+          "type": "string",
+          "enum": [
+            "gpt-4o",
+            "gpt-4o-mini",
+            "gpt-4-turbo",
+            "gpt-3.5-turbo"
+          ],
+          "default": "gpt-4o",
+          "description": "OpenAI model to use"
+        },
+        "aiCodingAgent.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Anthropic API key (sk-ant-...)",
+          "markdownDescription": "Your Anthropic API key. Get one at [console.anthropic.com](https://console.anthropic.com/)"
+        },
+        "aiCodingAgent.anthropicModel": {
+          "type": "string",
+          "enum": [
+            "claude-opus-4-5",
+            "claude-sonnet-4-5",
+            "claude-haiku-4-5",
+            "claude-3-5-sonnet-20241022",
+            "claude-3-5-haiku-20241022"
+          ],
+          "default": "claude-3-5-sonnet-20241022",
+          "description": "Anthropic model to use"
+        },
+        "aiCodingAgent.geminiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Google Gemini API key",
+          "markdownDescription": "Your Google Gemini API key. Get one at [aistudio.google.com](https://aistudio.google.com/app/apikey)"
+        },
+        "aiCodingAgent.geminiModel": {
+          "type": "string",
+          "enum": [
+            "gemini-2.0-flash",
+            "gemini-1.5-pro",
+            "gemini-1.5-flash"
+          ],
+          "default": "gemini-2.0-flash",
+          "description": "Gemini model to use"
+        },
+        "aiCodingAgent.ollamaBaseUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Base URL for the Ollama server. Change this if Ollama runs on a different host or port.",
+          "markdownDescription": "Base URL for the Ollama server (default: `http://localhost:11434`). Must be running `ollama serve` locally."
+        },
+        "aiCodingAgent.ollamaModel": {
+          "type": "string",
+          "default": "llama3",
+          "description": "Ollama model to use (e.g. llama3, mistral, codellama, phi3, gemma2). The model must be pulled first with: ollama pull <model>",
+          "markdownDescription": "Ollama model to use. Examples: `llama3`, `mistral`, `codellama`, `phi3`, `gemma2`, `deepseek-coder`. Pull with: `ollama pull <model>`"
+        },
+        "aiCodingAgent.codeLens.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show AI action buttons (⚡ Analyze · 🔧 Refactor · 🧪 Test · 📝 Document · 🚀 Optimize) above every function"
+        },
+        "aiCodingAgent.autocomplete.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI inline autocomplete suggestions"
+        },
+        "aiCodingAgent.autocomplete.delay": {
+          "type": "number",
+          "default": 600,
+          "description": "Delay in milliseconds before triggering autocomplete (100-2000)"
+        },
+        "aiCodingAgent.contextLines": {
+          "type": "number",
+          "default": 50,
+          "description": "Number of lines of surrounding context to include with requests (10-200)"
+        },
+        "aiCodingAgent.maxTokens": {
+          "type": "number",
+          "default": 2048,
+          "description": "Maximum tokens for AI responses (256-8192)"
+        },
+        "aiCodingAgent.social.twitter.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Twitter / X API Key (Consumer Key) — from developer.twitter.com"
+        },
+        "aiCodingAgent.social.twitter.apiSecret": {
+          "type": "string",
+          "default": "",
+          "description": "Twitter / X API Secret (Consumer Secret)"
+        },
+        "aiCodingAgent.social.twitter.accessToken": {
+          "type": "string",
+          "default": "",
+          "description": "Twitter / X Access Token (your account's token)"
+        },
+        "aiCodingAgent.social.twitter.accessTokenSecret": {
+          "type": "string",
+          "default": "",
+          "description": "Twitter / X Access Token Secret"
+        },
+        "aiCodingAgent.social.linkedin.accessToken": {
+          "type": "string",
+          "default": "",
+          "description": "LinkedIn OAuth 2.0 Access Token — from LinkedIn Developer Portal"
+        },
+        "aiCodingAgent.social.linkedin.personId": {
+          "type": "string",
+          "default": "",
+          "description": "LinkedIn Person URN ID (the alphanumeric ID in your LinkedIn profile URL)"
+        },
+        "aiCodingAgent.social.instagram.accessToken": {
+          "type": "string",
+          "default": "",
+          "description": "Instagram Graph API Access Token — from Meta for Developers (requires Business Account)"
+        },
+        "aiCodingAgent.social.instagram.userId": {
+          "type": "string",
+          "default": "",
+          "description": "Instagram Business Account User ID (numeric, from Meta Graph API Explorer)"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "aiCodingAgent.openChat",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a"
+      },
+      {
+        "command": "aiCodingAgent.generateFromSelection",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "aiCodingAgent.analyzeFunction",
+        "key": "ctrl+shift+f",
+        "mac": "cmd+shift+f",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "aiCodingAgent.findCodeSmells",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "aiCodingAgent.openArchitect",
+        "key": "ctrl+shift+i",
+        "mac": "cmd+shift+i"
+      },
+      {
+        "command": "aiCodingAgent.openContentWriter",
+        "key": "ctrl+shift+w",
+        "mac": "cmd+shift+w"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run typecheck && node build.mjs",
+    "typecheck": "tsc -p ./ --noEmit",
+    "compile": "tsc -p ./",
+    "bundle": "node build.mjs",
+    "watch": "tsc -watch -p ./",
+    "package": "npx @vscode/vsce package --no-dependencies",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.37",
+    "@types/pdfkit": "^0.17.5",
+    "@types/vscode": "^1.110.0",
+    "@vscode/vsce": "^2.32.0",
+    "esbuild": "^0.27.4",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "docx": "^9.6.1",
+    "pdfkit": "^0.18.0"
+  }
+}
